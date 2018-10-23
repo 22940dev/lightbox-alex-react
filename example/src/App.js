@@ -24,7 +24,10 @@ const thumbnails2 = [
   'http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg',
   'http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg'
 ]
-
+const video = ['./video.mp4',
+'https://images.pexels.com/photos/1164763/pexels-photo-1164763.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://images.pexels.com/photos/1151262/pexels-photo-1151262.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://images.pexels.com/photos/701449/pexels-photo-701449.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'];
 
 export default class App extends Component {
   render () {
@@ -33,8 +36,9 @@ export default class App extends Component {
         <header>
           <h1>lightbox-by-alex port for react</h1>
         </header>
-        <Gallery pictures={pictures} thumbnails={thumbnails} gallery='myGallery' tmbClass='tmb' galleryClasses='demoGallery' />
-        <Gallery pictures={pictures2} thumbnails={thumbnails2} gallery='myGallery2' tmbClass='tmb' galleryClasses='demoGallery' />
+        <Gallery files={pictures} thumbnails={thumbnails} />
+        <Gallery files={pictures2} thumbnails={thumbnails2} />
+        <Gallery files={video} />
         <footer>
           2018 - Aleksandar Gjoreski
         </footer>
