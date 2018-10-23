@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+var path = require('path');
 
 export default class Modal extends Component {
 
@@ -8,99 +9,108 @@ export default class Modal extends Component {
         current: (Number(this.props.startIndex) % this.props.pictures.length),
         currentRef: this.props.modalRef,
         toggle: true,
-        picClasses: 'foto enterEffect',
+        video: false,
         tStartX: 0,
         tEndX: 0,
+        xMove: '',
         fingers: 0
     }
 
     modalClose = (e) => {
-        e.preventDefault();
+        if(e){
+            e.preventDefault();
+        }
         ReactDOM.render(<div></div>, document.querySelector('#modal-alex-box'));
     }
 
     next = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+        if(e){
+            e.preventDefault();
+            e.stopPropagation();   
+        }
         let nextPic = (this.state.current + 1) % (this.state.total);
+        console.log('nextpic: ' + nextPic)
+        var ext = path.extname(this.props.pictures[nextPic]);
         this.setState({
             current: nextPic,
-            currentRef: this.props.pictures[nextPic]
+            currentRef: this.props.pictures[nextPic],
+            video: ext == '.mp4' ? true : false,
+            xMove: ''
         });
     }
 
     prev = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+        if(e){
+            e.preventDefault();
+            e.stopPropagation();   
+        }
         let prevPic = this.state.current == 0 ? this.state.total - 1 : (this.state.current - 1) % (this.state.total);
+        var ext = path.extname(this.props.pictures[prevPic]);
         this.setState({
             current: prevPic,
-            currentRef: this.props.pictures[prevPic]
+            currentRef: this.props.pictures[prevPic],
+            video: ext == '.mp4' ? true : false,
+            xMove: ''
         });
     }
 
     clickedPic = (e) => {
-        e.stopPropagation();
+        if(e){
+            e.stopPropagation();   
+        }
         this.setState({
             toggle: this.state.toggle ? false : true
         })
     }
 
-    // keypress handling
     keypressed = (e) => {
         if (e) {
-            var x = e.charCode || e.keyCode;  // Get the Unicode value
+            e.preventDefault();
+            var x = e.charCode || e.keyCode;
         }
-        if ((x == 37) || (x == 40)) {   // left arrow or down arrow
-            let prevPic = this.state.current == 0 ? this.state.total - 1 : (this.state.current - 1) % (this.state.total);
-            this.setState({
-                current: prevPic,
-                currentRef: this.props.pictures[prevPic]
-            });
-        } else if ((x == 39) || (x == 38)) { // right arrow or up arrow
-            let nextPic = (this.state.current + 1) % (this.state.total);
-            this.setState({
-                current: nextPic,
-                currentRef: this.props.pictures[nextPic]
-            });
-        } else if (x == 27) { // esc button
-            ReactDOM.render(<div></div>, document.querySelector('#modal-alex-box'));
+        if ((x == 37) || (x == 40)) {
+            this.prev();
+        } else if ((x == 39) || (x == 38)) {
+            this.next();
+        } else if (x == 27) {
+            this.modalClose();
         }
     }
 
     handlestart = (e) =>{
+        if(e.touches.length > 1){
+            e.preventDefault();
+        }
         this.setState({
             tStartX: e.touches[0].clientX,
-            fingers: e.touches.length,
-            picClasses: 'foto'
+            fingers: e.touches.length
         })
+    }
+    
+    handlemove = (e) =>{
+        if(e.touches.length > 1){
+            e.preventDefault();
+        }
+        if(this.state.fingers == 1){
+            var x = e.changedTouches[0].clientX - this.state.tStartX;
+            this.setState({
+                xMove: `translate(calc(${x}px - 50%),-50%)`
+            })
+        }
     }
 
     handleend = (e) =>{
+        if(e.touches.length > 1){
+            e.preventDefault();
+        }
         this.setState({
             tEndX: e.changedTouches[0].clientX - this.state.tStartX
         },()=>{
             if(this.state.fingers == 1){
                 if(this.state.tEndX < 0){
-                    this.setState({
-                        picClasses: 'foto swipeLeft'
-                    }, ()=>{
-                        let prevPic = this.state.current == 0 ? this.state.total - 1 : (this.state.current - 1) % (this.state.total);
-                        this.setState({
-                            current: prevPic,
-                            currentRef: this.props.pictures[prevPic]
-                        });
-                    })
+                    this.next();
                 }else if (this.state.tEndX > 0){
-                    this.setState({
-                        picClasses: 'foto swipeRight'
-                    }, ()=>{
-                        let nextPic = (this.state.current + 1) % (this.state.total);
-                        this.setState({
-                            current: nextPic,
-                            currentRef: this.props.pictures[nextPic]
-                        });
-                    })
+                    this.prev();
                 }
             }
         })
@@ -111,11 +121,27 @@ export default class Modal extends Component {
         document.addEventListener('keydown', this.keypressed);
     }
 
+    componentWillMount(){
+        var ext = path.extname(this.state.currentRef);
+        if(ext == '.mp4'){
+            this.setState({
+                video: true
+            })
+        }else{
+            this.setState({
+                video: false
+            })
+        }
+    }
+
     componentWillUnmount() {
         document.removeEventListener('keydown', this.keypressed);
     }
 
     render() {
+        const style = {
+            transform: this.state.xMove
+        }
         return (
             <div className="modal-lightbox" onClick={this.modalClose}>
                 {this.state.toggle ? <div>
@@ -125,7 +151,14 @@ export default class Modal extends Component {
                     <div className="counter">{this.state.current + 1}/{this.state.total}</div>
                 </div> : null
                 }
-                <img className={this.state.picClasses} src={this.state.currentRef} onClick={this.clickedPic} onTouchStart={this.handlestart} onTouchEnd={this.handleend}/>
+                {
+                    this.state.video ? 
+                        <video controls className='video enterEffect' style={style} onClick={this.clickedPic} onTouchStart={this.handlestart}  onTouchMove={this.handlemove} onTouchEnd={this.handleend}>
+                            <source src={this.state.currentRef} type="video/mp4"></source>
+                        </video>
+                    :
+                        <img className='foto enterEffect' src={this.state.currentRef} style={style} onClick={this.clickedPic} onTouchStart={this.handlestart} onTouchMove={this.handlemove} onTouchEnd={this.handleend}/>
+                }
             </div>
         )
     }

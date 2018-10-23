@@ -1,6 +1,6 @@
 # lightbox-alex-react
 
-> touch friendly lightbox gallery for react
+> Touch friendly lightbox gallery for react
 
 [![NPM](https://img.shields.io/npm/v/lightbox-alex-react.svg)](https://www.npmjs.com/package/lightbox-alex-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -11,10 +11,12 @@
 - Navigate through the pictures with swipe (⮨ ⮩)
 - Multiple (separated) galleries in one page
 - Counter (#current picture / #gallery)
+- Video support (only mp4 format)
+
 
 ## Upcoming Features
-- Video support
 - Visual improvements
+> If you have any requests post an issue on github and I'll do my best
 
 
 ## Install
@@ -33,7 +35,8 @@ import Gallery from 'lightbox-alex-react'
 class Example extends Component {
   render () {
     return (
-      <Gallery pictures={pictures} thumbnails={thumbnails} gallery='gallery1' tmbClass='tmb' galleryClasses='demoGallery' />
+      <Gallery files={pictures} thumbnails={thumbnails} />
+      <Gallery files={video} />
     )
   }
 }
@@ -41,13 +44,13 @@ class Example extends Component {
 
 ```
 props = {
-  pictures: proptypes.array,          // array of src of full res pictures
-  thumbnails: proptypes.array,        // array of src of thumbnails (for each picture), if not the default one is used
-  gallery: proptypes.string,          // name of the gallery
-  tmbClasses: proptypes.string,       // classes to apply to the thumbnails
-  galleryClasses: proptypes.string    // classes to apply to the gallery
+  files: proptypes.array,             // array of src of full res pictures / videos
+  thumbnails: proptypes.array,        // (optional) array of src of thumbnails (for each picture), if not the default one is used
+  tmbClasses: proptypes.string,       // (optional) classes to apply to the thumbnails
+  galleryClasses: proptypes.string    // (optional) classes to apply to the gallery
 }
 ```
+> If optional prop is not passed, default value is used
 
 ## ENJOY!
 

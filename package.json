@@ -1,7 +1,13 @@
 {
   "name": "lightbox-alex-react",
-  "version": "1.0.4",
-  "description": "touch friendly lightbox gallery for react",
+  "version": "1.1.0",
+  "description": "Touch friendly lightbox gallery for react",
+  "keywords": [
+    "react",
+    "lightbox",
+    "touch",
+    "swipe"
+  ],
   "author": "Aleksandar Gjoreski",
   "license": "MIT",
   "repository": "https://github.com/alezen9/lightbox-alex-react.git",
