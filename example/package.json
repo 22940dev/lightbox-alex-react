@@ -1,7 +1,7 @@
 {
   "name": "lightbox-alex-react-example",
   "homepage": "https://alezen9.github.io/lightbox-alex-react",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "private": true,
   "dependencies": {
