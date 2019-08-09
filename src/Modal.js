@@ -4,17 +4,19 @@ var path = require('path')
 
 
 export default class Modal extends Component {
-
-    state = {
-        total: this.props.pictures.length,
-        current: (Number(this.props.startIndex) % this.props.pictures.length),
-        currentRef: this.props.modalRef,
-        toggle: true,
-        video: false,
-        tStartX: 0,
-        tEndX: 0,
-        xMove: '',
-        fingers: 0
+    constructor(){
+        super()
+        this.state = {
+            total: this.props.pictures.length,
+            current: (Number(this.props.startIndex) % this.props.pictures.length),
+            currentRef: this.props.modalRef,
+            toggle: true,
+            video: false,
+            tStartX: 0,
+            tEndX: 0,
+            xMove: '',
+            fingers: 0
+        }
     }
 
     modalClose = e => {

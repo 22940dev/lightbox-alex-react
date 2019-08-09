@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/lightbox-alex-react.svg)](https://www.npmjs.com/package/lightbox-alex-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-##Demo [Here](https://alezen9.github.io/Lightbox_by_Alex/)
+## Demo [Here](https://alezen9.github.io/Lightbox_by_Alex/)
 
 ## Features
 - Navigate through the pictures with keypress (🡄 🡆)
