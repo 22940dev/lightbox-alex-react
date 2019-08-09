@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import arrow from './rightArrow.svg'
 var path = require('path')
 
 
@@ -122,8 +123,8 @@ export default class Modal extends Component {
             <div className="modal-lightbox" onClick={this.modalClose}>
                 {toggle ? <div>
                     <div className="x" onClick={this.modalClose}></div>
-                    <div className="lBtn" onClick={this.prev}></div>
-                    <div className="rBtn" onClick={this.next}></div>
+                    <div className="lBtn" onClick={this.prev}>{arrow}</div>
+                    <div className="rBtn" onClick={this.next}>{arrow}</div>
                     <div className="counter">{current + 1}/{total}</div>
                 </div> : null
                 }
@@ -134,7 +135,7 @@ export default class Modal extends Component {
                             className='video enterEffect' 
                             style={style} 
                             onClick={this.clickedPic} 
-                            ùonTouchStart={this.handlestart}  
+                            onTouchStart={this.handlestart}  
                             onTouchMove={this.handlemove} 
                             onTouchEnd={this.handleend}
                         >
@@ -147,7 +148,7 @@ export default class Modal extends Component {
                             style={style} 
                             onClick={this.clickedPic} 
                             onTouchStart={this.handlestart} 
-                            ùonTouchMove={this.handlemove} 
+                            onTouchMove={this.handlemove} 
                             onTouchEnd={this.handleend}
                         />
                 }
