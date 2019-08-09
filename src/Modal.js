@@ -4,12 +4,12 @@ var path = require('path')
 
 
 export default class Modal extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
-            total: this.props.pictures.length,
-            current: (Number(this.props.startIndex) % this.props.pictures.length),
-            currentRef: this.props.modalRef,
+            total: props.pictures.length,
+            current: Number(props.startIndex) % props.pictures.length,
+            currentRef: props.modalRef,
             toggle: true,
             video: false,
             tStartX: 0,

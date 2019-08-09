@@ -35,7 +35,7 @@ class Gallery extends Component {
       />, document.querySelector('#modal-alex-box'));
   }
 
-  componentDidMount(){
+  UNSAFE_componentWillMount(){
     const body = document.querySelector('body');
     const divexst = document.querySelector('#modal-alex-box')
     if (!divexst){
@@ -68,7 +68,6 @@ class Gallery extends Component {
 
   render() {
     const {  galleryClasses } = this.props
-    console.log(videoTmb)
 
     return (
       <div className={galleryClasses ? galleryClasses : 'demoGallery'}>
