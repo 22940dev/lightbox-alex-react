@@ -4,6 +4,8 @@
 
 [![NPM](https://img.shields.io/npm/v/lightbox-alex-react.svg)](https://www.npmjs.com/package/lightbox-alex-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+##Demo [Here](https://alezen9.github.io/Lightbox_by_Alex/)
+
 ## Features
 - Navigate through the pictures with keypress (🡄 🡆)
 - Exit with 'esc' key, tap/click on space around image or tap/click on "x"
@@ -23,6 +25,7 @@
 
 ```bash
 npm install --save lightbox-alex-react
+yarn add --save lightbox-alex-react
 ```
 
 ## Usage
@@ -32,11 +35,15 @@ import React, { Component } from 'react'
 
 import Gallery from 'lightbox-alex-react'
 
+const pictures = ['url1', '/path/to/image.jpg']
+const mixed = ['url1', '/path/to/image.jpg', 'urlVideo', '/path/to/video.mp4']
+
+
 class Example extends Component {
   render () {
     return (
       <Gallery files={pictures} thumbnails={thumbnails} />
-      <Gallery files={video} />
+      <Gallery files={mixed} />
     )
   }
 }
