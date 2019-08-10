@@ -82,7 +82,8 @@ export default class Modal extends Component {
         })
     }
     
-    handlemove = e =>{
+    handlemove = e => {
+        e.persist()
         if(e.touches.length > 1) e.preventDefault()
         if(this.state.fingers === 1){
             var x = e.changedTouches[0].clientX - this.state.tStartX;
@@ -90,7 +91,8 @@ export default class Modal extends Component {
         }
     }
 
-    handleend = e =>{
+    handleend = e => {
+        e.persist()
         if(e.touches.length > 1) e.preventDefault()
         this.setState(({tStartX}) => ({tEndX: e.changedTouches[0].clientX - tStartX}), () => {
             const { fingers, tEndX } = this.state
@@ -123,8 +125,12 @@ export default class Modal extends Component {
             <div className="modal-lightbox" onClick={this.modalClose}>
                 {toggle ? <div>
                     <div className="x" onClick={this.modalClose}></div>
-                    <div className="lBtn" onClick={this.prev}>{arrow}</div>
-                    <div className="rBtn" onClick={this.next}>{arrow}</div>
+                    <div className="lBtn" onClick={this.prev}>
+                        <img src={arrow} className="svg" />
+                    </div>
+                    <div className="rBtn" onClick={this.next}>
+                    <img src={arrow} className="svg" />
+                    </div>
                     <div className="counter">{current + 1}/{total}</div>
                 </div> : null
                 }
