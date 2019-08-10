@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import arrow from './rightArrow.svg'
-var path = require('path')
+const path = require('path')
 
 
-export default class Modal extends Component {
+class Modal extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -53,7 +53,7 @@ export default class Modal extends Component {
         var ext = path.extname(pictures[prevPic])
         this.setState({
             current: prevPic,
-            currentRef: this.props.pictures[prevPic],
+            currentRef: pictures[prevPic],
             video: ext === '.mp4',
             xMove: ''
         })
@@ -81,13 +81,15 @@ export default class Modal extends Component {
             fingers: e.touches.length
         })
     }
+
+
     
     handlemove = e => {
         e.persist()
         if(e.touches.length > 1) e.preventDefault()
         if(this.state.fingers === 1){
             var x = e.changedTouches[0].clientX - this.state.tStartX;
-            this.setState({ xMove: `translate(calc(${x}px - 50%),-50%)` })
+            this.setState({ xMove: `translate(calc(${x/3}px - 50%),-50%)` })
         }
     }
 
@@ -138,7 +140,7 @@ export default class Modal extends Component {
                     video ? 
                         <video 
                             controls 
-                            className='video enterEffect' 
+                            className='video enterEffect'
                             style={style} 
                             onClick={this.clickedPic} 
                             onTouchStart={this.handlestart}  
@@ -149,7 +151,7 @@ export default class Modal extends Component {
                         </video>
                     :
                         <img 
-                            className='foto enterEffect' 
+                            className='video enterEffect'
                             src={currentRef} 
                             style={style} 
                             onClick={this.clickedPic} 
@@ -162,3 +164,5 @@ export default class Modal extends Component {
         )
     }
 }
+
+export default Modal

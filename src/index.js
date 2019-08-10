@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import videoTmb from './play.svg'
 import galleryTmb from './gallery.svg'
-
 import './styles.css'
 import Modal from './Modal'
-var path = require('path')
+const path = require('path')
 
 class Gallery extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       index: null,
@@ -16,6 +15,8 @@ class Gallery extends Component {
       default: props.thumbnails ? props.files.length === props.thumbnails.length ? false : true : true
     }
   }
+
+  
 
   handleClick = e => {
     e.preventDefault()
