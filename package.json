@@ -23,7 +23,9 @@
     "test:watch": "react-scripts test --env=jsdom",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject" 
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
